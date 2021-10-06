@@ -19,6 +19,30 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <ActivityIndicator x:Name="loadingCoins" IsRunning="true" />
+        <ListView x:Name="listOfCoins"
+                  ItemTapped="listOfCoins_ItemTapped">                 
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding name}" FontAttributes="Bold" />
+                            <Label Grid.Column="4" Text="{Binding symbol}" VerticalOptions="End" />
+                            <Image Grid.Column="3" Source="{Binding image.thumb}" VerticalOptions="End"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 
 </ContentPage>
