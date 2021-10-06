@@ -42,9 +42,10 @@ namespace JTea_DPS926_Assignment2
             base.OnAppearing();
         }
 
-        private void listOfCoins_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void listOfCoins_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
+            Coin c = e.Item as Coin;
+            await Navigation.PushAsync(new CoinDetailsPage(c.id));
         }
     }
 }

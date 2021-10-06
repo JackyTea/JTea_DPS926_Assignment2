@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JTea_DPS926_Assignment2.CoinDetailsPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand">
+            <Label TextColor="Black" Text="Test"/>
+            <Label x:Name="coinId" TextColor="Black" Text="Loading coin id..."/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
