@@ -10,9 +10,15 @@ namespace JTea_DPS926_Assignment2
 {
     public partial class MainPage : ContentPage
     {
+        NetworkingService service = new NetworkingService();
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }
