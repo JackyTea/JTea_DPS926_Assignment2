@@ -19,7 +19,7 @@ namespace JTea_DPS926_Assignment2
 
         private Image _image;
 
-        private MarketData _price;
+        private MarketData _market_data;
 
         private Description _description;
 
@@ -116,24 +116,24 @@ namespace JTea_DPS926_Assignment2
         }
 
         // current price of the cryptocurrency (in USD)
-        public MarketData price
+        public MarketData market_data
         {
             get
             {
-                return _price;
+                return _market_data;
             }
             set
             {
-                if (value == _price)
+                if (value == _market_data)
                 {
                     return;
                 }
 
-                _price = value;
+                _market_data = value;
 
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(price)));
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(market_data)));
                 }
             }
         }
@@ -165,13 +165,13 @@ namespace JTea_DPS926_Assignment2
         public Coin() { }
 
         // constructor (6 params required)
-        public Coin(string id, string symbol, string name, Image image, MarketData price, Description description)
+        public Coin(string id, string symbol, string name, Image image, MarketData market_data, Description description)
         {
             this.id = id;
             this.symbol = symbol;
             this.name = name;
             this.image = image;
-            this.price = price;
+            this.market_data = market_data;
             this.description = description;
         }
     }
@@ -182,10 +182,14 @@ public class Image : INotifyPropertyChanged
     // property change event implementation
     public event PropertyChangedEventHandler PropertyChanged;
 
-    // backing field
+    // backing fields
     private string _thumb;
 
-    // image url string
+    private string _small;
+
+    private string _large;
+
+    // image url string (thumbnail)
     public string thumb
     {
         get
@@ -208,10 +212,58 @@ public class Image : INotifyPropertyChanged
         }
     }
 
+    // image url string (small)
+    public string small
+    {
+        get
+        {
+            return _small;
+        }
+        set
+        {
+            if (value == _small)
+            {
+                return;
+            }
+
+            _small = value;
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(small)));
+            }
+        }
+    }
+
+    // image url string (large)
+    public string large
+    {
+        get
+        {
+            return _large;
+        }
+        set
+        {
+            if (value == _large)
+            {
+                return;
+            }
+
+            _large = value;
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(large)));
+            }
+        }
+    }
+
     // constructor (1 params required)
-    public Image(string thumb)
+    public Image(string thumb, string small, string large)
     {
         this.thumb = thumb;
+        this.small = small;
+        this.large = large;
     }
 }
 

@@ -32,7 +32,7 @@ namespace JTea_DPS926_Assignment2
                         c.symbol,
                         c.name,
                         c.image,
-                        c.price,
+                        c.market_data,
                         new Description("")
                     )
                 );

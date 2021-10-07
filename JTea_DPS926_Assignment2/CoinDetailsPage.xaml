@@ -5,8 +5,11 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand">
-            <Label TextColor="Black" Text="Test"/>
-            <Label x:Name="coinId" TextColor="Black" Text="Loading coin id..."/>
+            <Image x:Name="coinImage" Source=""/>
+            <Label x:Name="coinSymbol" TextColor="Black" Text="Loading coin symbol..."/>
+            <Label x:Name="coinName" TextColor="Black" Text="Loading coin name..."/>
+            <Label x:Name="coinPrice" TextColor="Black" Text="Loading coin price..."/>
+            <Label x:Name="coinDescription" TextColor="Black" Text="Loading coin description..."/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

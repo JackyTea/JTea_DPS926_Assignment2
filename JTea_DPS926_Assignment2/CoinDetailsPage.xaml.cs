@@ -29,7 +29,11 @@ namespace JTea_DPS926_Assignment2
             coin = new Coin();
             var coinData = await service.getOneCoin(id);
             coin = coinData;
-            coinId.Text = coin.id;
+            coinSymbol.Text = coin.symbol;
+            coinName.Text = coin.name;
+            coinImage.Source = coin.image.large;
+            coinPrice.Text = coin.market_data.current_price.usd.ToString();
+            coinDescription.Text = coin.description.en;
             base.OnAppearing();
         }
     }
