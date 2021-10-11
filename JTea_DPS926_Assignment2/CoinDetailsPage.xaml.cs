@@ -42,11 +42,11 @@ namespace JTea_DPS926_Assignment2
             else
             {
                 coin = coinData;
-                coinSymbol.Text = coin.symbol;
+                coinSymbol.Text = coin.symbol.ToUpper();
                 coinName.Text = coin.name;
                 coinImage.Source = coin.image.large;
                 coinPrice.Text = coin.market_data.current_price.usd.ToString();
-                coinDescription.Text = TruncateDescription(coin.description.en, 255);
+                coinDescription.Text = TruncateDescription(coin.description.en, 200);
             }
             base.OnAppearing();
         }

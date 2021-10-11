@@ -3,13 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JTea_DPS926_Assignment2.CoinDetailsPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand">
-            <Image x:Name="coinImage" Source=""/>
-            <Label x:Name="coinSymbol" TextColor="Black" Text="Loading coin symbol..."/>
-            <Label x:Name="coinName" TextColor="Black" Text="Loading coin name..."/>
-            <Label x:Name="coinPrice" TextColor="Black" Text="Loading coin price..."/>
-            <Label x:Name="coinDescription" TextColor="Black" Text="Loading coin description..."/>
-        </StackLayout>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image BackgroundColor="White" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" x:Name="coinImage" Source=""/>
+
+            <StackLayout Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Grid.Row="3" Grid.Column="0">
+                <Label TextColor="Gray" Text="Symbol" />
+                <Label x:Name="coinSymbol" TextColor="Black" Text="N/A"/>
+            </StackLayout>
+
+            <StackLayout Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Grid.Row="3" Grid.Column="1">
+                <Label TextColor="Gray" Text="Name" />
+                <Label x:Name="coinName" TextColor="Black" Text="N/A"/>
+            </StackLayout>
+
+            <StackLayout Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Grid.Row="3" Grid.Column="2">
+                <Label TextColor="Gray" Text="Price" />
+                <Label x:Name="coinPrice" TextColor="Black" Text="N/A"/>
+            </StackLayout>
+
+            <StackLayout Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                <Label TextColor="Gray" Text="Description" />
+                <Label x:Name="coinDescription" TextColor="Black" Text="N/A"/>
+            </StackLayout>
+
+            <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#4287F5" Text="Add to Favourites"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
