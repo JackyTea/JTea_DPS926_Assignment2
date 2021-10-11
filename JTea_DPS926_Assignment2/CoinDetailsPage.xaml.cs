@@ -35,12 +35,19 @@ namespace JTea_DPS926_Assignment2
         {
             coin = new Coin();
             var coinData = await service.getOneCoin(id);
-            coin = coinData;
-            coinSymbol.Text = coin.symbol;
-            coinName.Text = coin.name;
-            coinImage.Source = coin.image.large;
-            coinPrice.Text = coin.market_data.current_price.usd.ToString();
-            coinDescription.Text = TruncateDescription(coin.description.en, 255);
+            if (coinData.symbol is null)
+            {
+
+            }
+            else
+            {
+                coin = coinData;
+                coinSymbol.Text = coin.symbol;
+                coinName.Text = coin.name;
+                coinImage.Source = coin.image.large;
+                coinPrice.Text = coin.market_data.current_price.usd.ToString();
+                coinDescription.Text = TruncateDescription(coin.description.en, 255);
+            }
             base.OnAppearing();
         }
     }

@@ -29,22 +29,34 @@ namespace JTea_DPS926_Assignment2
         {
             coins = new ObservableCollection<Coin>();
             var coinsData = await service.getAllCoins();
-            foreach (Coin c in coinsData)
+            if (coinsData.Count != 0)
             {
-                coins.Add(
-                    new Coin(
-                        c.id,
-                        c.symbol,
-                        c.name,
-                        c.image,
-                        c.market_data,
-                        new Description("")
-                    )
-                );
+                foreach (Coin c in coinsData)
+                {
+                    coins.Add(
+                        new Coin(
+                            c.id,
+                            c.symbol,
+                            c.name,
+                            c.image,
+                            c.market_data,
+                            new Description("")
+                        )
+                    );
+                }
+                loadingCryptos.IsRunning = false;
+                coinListStackLayout.Children.Remove(loadingCryptos);
+                listOfCryptos.ItemsSource = coins;
             }
-            loadingCryptos.IsRunning = false;
-            coinListStackLayout.Children.Remove(loadingCryptos);
-            listOfCryptos.ItemsSource = coins;
+            else {
+                Label noCoinsMessage = new Label();
+                noCoinsMessage.Text = "Unable to load data!";
+                noCoinsMessage.FontSize = 30;
+                noCoinsMessage.TextColor = Color.Black;
+                noCoinsMessage.HorizontalOptions = LayoutOptions.Center;
+                coinListStackLayout.Children.Remove(loadingCryptos);
+                coinListStackLayout.Children.Add(noCoinsMessage);
+            }
             base.OnAppearing();
         }
 

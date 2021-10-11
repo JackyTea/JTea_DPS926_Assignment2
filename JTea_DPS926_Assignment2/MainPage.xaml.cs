@@ -36,9 +36,9 @@ namespace JTea_DPS926_Assignment2
         }
 
         // go to list of favourites
-        private void OnFavouritesListClicked(object sender, EventArgs e)
+        private async void OnFavouritesListClicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new FavouritesPage());
         }
     }
 }
