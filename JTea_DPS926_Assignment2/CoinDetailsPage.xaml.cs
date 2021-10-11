@@ -37,7 +37,11 @@ namespace JTea_DPS926_Assignment2
             var coinData = await service.getOneCoin(id);
             if (coinData.symbol is null)
             {
-
+                coinSymbol.Text = "No Data";
+                coinName.Text = "No Data";
+                coinPrice.Text = "No Data";
+                coinDescription.Text = "No coin was found!";
+                CoinDetailsTitle.Text = "Coin not found!";
             }
             else
             {
@@ -45,9 +49,12 @@ namespace JTea_DPS926_Assignment2
                 coinSymbol.Text = coin.symbol.ToUpper();
                 coinName.Text = coin.name;
                 coinImage.Source = coin.image.large;
-                coinPrice.Text = coin.market_data.current_price.usd.ToString();
+                coinPrice.Text = "$" + coin.market_data.current_price.usd.ToString();
                 coinDescription.Text = TruncateDescription(coin.description.en, 200);
+                CoinDetailsTitle.Text = coin.name + " Details";
             }
+            loadingCrypto.IsRunning = false;
+            CoinDetailsGrid.Children.Remove(loadingCrypto);
             base.OnAppearing();
         }
     }
