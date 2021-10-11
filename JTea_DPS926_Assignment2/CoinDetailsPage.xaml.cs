@@ -24,6 +24,13 @@ namespace JTea_DPS926_Assignment2
             InitializeComponent();
         }
 
+        public string TruncateDescription(string description, int max)
+        {
+            if (description.Length > max)
+                return description.Substring(0, max) + "...";
+            return description;
+        }
+
         protected async override void OnAppearing()
         {
             coin = new Coin();
@@ -33,7 +40,7 @@ namespace JTea_DPS926_Assignment2
             coinName.Text = coin.name;
             coinImage.Source = coin.image.large;
             coinPrice.Text = coin.market_data.current_price.usd.ToString();
-            coinDescription.Text = coin.description.en;
+            coinDescription.Text = TruncateDescription(coin.description.en, 255);
             base.OnAppearing();
         }
     }
