@@ -2,47 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JTea_DPS926_Assignment2.MainPage">
-
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+    <NavigationPage.TitleView>
+        <Label TextColor="White" FontSize="20" FontAttributes="Bold" Text="Crypto Explorer" VerticalTextAlignment="Center"/>
+    </NavigationPage.TitleView>
+    <StackLayout Margin="20" VerticalOptions="CenterAndExpand">
+        <Frame CornerRadius="20" Padding="0" IsClippedToBounds="True">
+            <Image x:Name="cryptoImage" HeightRequest="200" WidthRequest="400" Aspect="AspectFill"/>
         </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <ActivityIndicator x:Name="loadingCoins" IsRunning="true" />
-        <ListView x:Name="listOfCoins"
-                  ItemTapped="listOfCoins_ItemTapped">                 
-            <ListView.ItemTemplate>
-                <DataTemplate>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection>
+                    <EntryCell x:Name="searchForCrypto" Keyboard="Text" Text="" LabelColor="Black" Label="Search For Crypto" Placeholder="(e.g. Bitcoin, Ethereum)">
+                    </EntryCell>
                     <ViewCell>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding name}" FontAttributes="Bold" />
-                            <Label Grid.Column="4" Text="{Binding symbol}" VerticalOptions="End" />
-                            <Image Grid.Column="3" Source="{Binding image.small}" VerticalOptions="End"/>
-                        </Grid>
+                        <StackLayout>
+                            <Button FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#969696" Text="Search" Clicked="OnSearchClicked"/>
+                        </StackLayout>
                     </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        <Button FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#4287F5" Text="Browse List" Clicked="OnBrowseListClicked"/>
+        <Button FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#4287F5" Text="View Favourites" Clicked="OnFavouritesListClicked"/>
     </StackLayout>
-
 </ContentPage>

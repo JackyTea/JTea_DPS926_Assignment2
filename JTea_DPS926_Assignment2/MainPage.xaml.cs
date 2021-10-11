@@ -4,48 +4,41 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace JTea_DPS926_Assignment2
 {
     public partial class MainPage : ContentPage
     {
-        public NetworkingService service = new NetworkingService();
-
-        public ObservableCollection<Coin> coins { get; private set; }
-
+        // constructor (0 params required)
         public MainPage()
         {
             InitializeComponent();
+            cryptoImage.Source = ImageSource.FromResource("JTea_DPS926_Assignment2.Images.crypto.jpg");
         }
 
-        protected async override void OnAppearing()
+        // search cryptos
+        private async void OnSearchClicked(object sender, EventArgs e)
         {
-            coins = new ObservableCollection<Coin>();
-            var coinsData = await service.getAllCoins();
-            foreach (Coin c in coinsData)
+            if (searchForCrypto.Text.Equals(""))
             {
-                coins.Add(
-                    new Coin(
-                        c.id,
-                        c.symbol,
-                        c.name,
-                        c.image,
-                        c.market_data,
-                        new Description("")
-                    )
-                );
+                await DisplayAlert("Error", "Please enter a coin name to search!", "Ok");
             }
-            loadingCoins.IsRunning = false;
-            listOfCoins.ItemsSource = coins;
-            base.OnAppearing();
+            else {
+                await Navigation.PushAsync(new CoinDetailsPage(searchForCrypto.Text.ToLower()));
+            }
         }
 
-        private async void listOfCoins_ItemTapped(object sender, ItemTappedEventArgs e)
+        // go to list of cryptos
+        private async void OnBrowseListClicked(object sender, EventArgs e)
         {
-            Coin c = e.Item as Coin;
-            await Navigation.PushAsync(new CoinDetailsPage(c.id));
+            await Navigation.PushAsync(new CoinListPage());
+        }
+
+        // go to list of favourites
+        private void OnFavouritesListClicked(object sender, EventArgs e)
+        {
+            
         }
     }
 }
