@@ -12,18 +12,23 @@ namespace JTea_DPS926_Assignment2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CoinDetailsPage : ContentPage
     {
+        // api networking service
         public NetworkingService service = new NetworkingService();
 
+        // query parameter
         public string id { get; private set; }
 
+        // coin data to be displayed
         public Coin coin { get; private set; }
 
+        // constructor (1 params required)
         public CoinDetailsPage(string id)
         {
             this.id = id;
             InitializeComponent();
         }
 
+        // show long description up to certain length
         public string TruncateDescription(string description, int max)
         {
             if (description.Length > max)
@@ -31,17 +36,20 @@ namespace JTea_DPS926_Assignment2
             return description;
         }
 
+        // load in coin
         protected async override void OnAppearing()
         {
             coin = new Coin();
             var coinData = await service.getOneCoin(id);
             if (coinData.symbol is null)
             {
+                CoinDetailsGrid.Children.Remove(addToFavouritesButton);
                 coinSymbol.Text = "No Data";
                 coinName.Text = "No Data";
                 coinPrice.Text = "No Data";
                 coinDescription.Text = "No coin was found!";
                 CoinDetailsTitle.Text = "Coin not found!";
+                await DisplayAlert("Error", id + " count not be found!", "Ok");
             }
             else
             {
