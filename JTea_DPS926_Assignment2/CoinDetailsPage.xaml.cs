@@ -13,7 +13,7 @@ namespace JTea_DPS926_Assignment2
     public partial class CoinDetailsPage : ContentPage
     {
         // api networking service
-        public NetworkingService service = new NetworkingService();
+        public NetworkingManager service = new NetworkingManager();
 
         // query parameter
         public string id { get; private set; }

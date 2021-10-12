@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace JTea_DPS926_Assignment2
 {
-    public class NetworkingService
+    public class NetworkingManager
     {
         // api endpoint
         private string url = "https://api.coingecko.com/api/v3/coins/";
@@ -17,7 +17,7 @@ namespace JTea_DPS926_Assignment2
         HttpClient client = new HttpClient();
 
         // default constructor (0 params required)
-        public NetworkingService() { }
+        public NetworkingManager() { }
 
         // get all coins available
         public async Task<List<Coin>> getAllCoins()

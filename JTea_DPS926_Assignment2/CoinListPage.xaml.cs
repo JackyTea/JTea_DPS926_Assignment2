@@ -13,7 +13,7 @@ namespace JTea_DPS926_Assignment2
     public partial class CoinListPage : ContentPage
     {
         // api service instance
-        public NetworkingService service = new NetworkingService();
+        public NetworkingManager service = new NetworkingManager();
 
         // coins to be displayed
         public ObservableCollection<Coin> coins { get; private set; }
