@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using SQLite;
 
 namespace JTea_DPS926_Assignment2
 {
@@ -9,6 +10,10 @@ namespace JTea_DPS926_Assignment2
     {
         // property change event implementation
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // unique id for database access
+        [PrimaryKey, AutoIncrement]
+        public int unique_id { get; set; }
 
         // backing fields
         private string _id;
