@@ -10,11 +10,20 @@ namespace JTea_DPS926_Assignment2
 {
     public partial class MainPage : ContentPage
     {
+        // database service instance
+        public DatabaseManager manager = new DatabaseManager();
+
         // constructor (0 params required)
         public MainPage()
         {
             InitializeComponent();
             cryptoImage.Source = ImageSource.FromResource("JTea_DPS926_Assignment2.Images.crypto.jpg");
+        }
+
+        // init table
+        protected async override void OnAppearing()
+        {
+            await manager.CreateTable();
         }
 
         // search cryptos
@@ -24,7 +33,8 @@ namespace JTea_DPS926_Assignment2
             {
                 await DisplayAlert("Error", "Please enter a coin name to search!", "Ok");
             }
-            else {
+            else
+            {
                 await Navigation.PushAsync(new CoinDetailsPage(searchForCrypto.Text.ToLower()));
             }
         }

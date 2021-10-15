@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JTea_DPS926_Assignment2.FavouritesPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <NavigationPage.TitleView>
+        <Label TextColor="White" FontSize="20" FontAttributes="Bold" Text="Your Favourites" VerticalTextAlignment="Center"/>
+    </NavigationPage.TitleView>
+    <StackLayout x:Name="favouritesListStackLayout" Margin="20" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+        <ActivityIndicator x:Name="loadingFavourites" IsRunning="true" Color="#4287F5" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+        <ListView x:Name="listOfFavourites" ItemTapped="FavouriteListItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding image.small}" Text="{Binding name}" Detail="{Binding symbol}" TextColor="Black" DetailColor="Gray"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

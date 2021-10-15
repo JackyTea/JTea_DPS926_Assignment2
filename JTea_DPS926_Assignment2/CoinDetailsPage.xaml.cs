@@ -15,6 +15,9 @@ namespace JTea_DPS926_Assignment2
         // api networking service
         public NetworkingManager service = new NetworkingManager();
 
+        // database service instance
+        public DatabaseManager manager = new DatabaseManager();
+
         // query parameter
         public string id { get; private set; }
 
@@ -64,6 +67,12 @@ namespace JTea_DPS926_Assignment2
             loadingCrypto.IsRunning = false;
             CoinDetailsGrid.Children.Remove(loadingCrypto);
             base.OnAppearing();
+        }
+
+        private void OnAddToFavourites(object sender, EventArgs e)
+        {
+            manager.InsertCoin(coin);
+            DisplayAlert("Notice", "Succesfully added " + coin.id + " to favourites!", "Ok");
         }
     }
 }

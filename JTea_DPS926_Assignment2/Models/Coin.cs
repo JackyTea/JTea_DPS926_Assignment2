@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace JTea_DPS926_Assignment2
 {
@@ -97,6 +98,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
+        [OneToOne]
         // logo url of the cryptocurrency
         public Image image
         {
@@ -120,6 +122,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
+        [OneToOne]
         // current price of the cryptocurrency (in USD)
         public MarketData market_data
         {
@@ -143,6 +146,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
+        [OneToOne]
         // description of the cryptocurrency
         public Description description
         {

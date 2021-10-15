@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SQLite;
 using Xamarin.Forms;
 
-namespace JTea_DPS926_Assignment2.Managers
+namespace JTea_DPS926_Assignment2
 {
     public class DatabaseManager
     {
