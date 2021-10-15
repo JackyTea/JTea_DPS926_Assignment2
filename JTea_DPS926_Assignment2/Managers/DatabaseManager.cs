@@ -37,6 +37,20 @@ namespace JTea_DPS926_Assignment2
             return coinsCollection;
         }
 
+        // check if coin is in favourites
+        public async Task<bool> CoinExists(string id) {
+            bool exists = false;
+            try
+            {
+                exists = await _connection.ExecuteScalarAsync<bool>("SELECT EXISTS(SELECT 1 FROM Coin WHERE id=?)", id);
+            }
+            catch 
+            {
+                exists = false;
+            }
+            return exists;
+        }
+
         // insert into database
         public async void InsertCoin(Coin newCoin)
         {

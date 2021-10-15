@@ -66,13 +66,37 @@ namespace JTea_DPS926_Assignment2
             }
             loadingCrypto.IsRunning = false;
             CoinDetailsGrid.Children.Remove(loadingCrypto);
+            bool exists = await manager.CoinExists(coin.id);
+            if (!exists)
+            {
+                addToFavouritesButton.Text = "Add to Favourites";
+                addToFavouritesButton.BackgroundColor = Color.FromHex("#4287F5");
+            }
+            else
+            {
+                addToFavouritesButton.Text = "Remove from Favourites";
+                addToFavouritesButton.BackgroundColor = Color.FromHex("#FF3421");
+            }
             base.OnAppearing();
         }
 
-        private void OnAddToFavourites(object sender, EventArgs e)
+        private async void OnAddToFavourites(object sender, EventArgs e)
         {
-            manager.InsertCoin(coin);
-            DisplayAlert("Notice", "Succesfully added " + coin.id + " to favourites!", "Ok");
+            bool exists = await manager.CoinExists(coin.id);
+            if (!exists)
+            {
+                addToFavouritesButton.Text = "Remove from Favourites";
+                addToFavouritesButton.BackgroundColor = Color.FromHex("#FF3421");
+                manager.InsertCoin(coin);
+                await DisplayAlert("Notice", "Succesfully added " + coin.id + " to favourites!", "Ok");
+            }
+            else
+            {
+                addToFavouritesButton.Text = "Add to Favourites";
+                addToFavouritesButton.BackgroundColor = Color.FromHex("#4287F5");
+                manager.DeleteCoin(coin);
+                await DisplayAlert("Notice", "Removed " + coin.id + " from favourites.", "Ok");
+            }
         }
     }
 }

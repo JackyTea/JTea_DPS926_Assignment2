@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace JTea_DPS926_Assignment2
 {
@@ -11,10 +10,6 @@ namespace JTea_DPS926_Assignment2
     {
         // property change event implementation
         public event PropertyChangedEventHandler PropertyChanged;
-
-        // unique id for database access
-        [PrimaryKey, AutoIncrement]
-        public int unique_id { get; set; }
 
         // backing fields
         private string _id;
@@ -30,6 +25,7 @@ namespace JTea_DPS926_Assignment2
         private Description _description;
 
         // id of the cryptocurrency
+        [PrimaryKey]
         public string id
         {
             get
@@ -98,7 +94,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
-        [OneToOne]
+        [Ignore]
         // logo url of the cryptocurrency
         public Image image
         {
@@ -122,7 +118,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
-        [OneToOne]
+        [Ignore]
         // current price of the cryptocurrency (in USD)
         public MarketData market_data
         {
@@ -146,7 +142,7 @@ namespace JTea_DPS926_Assignment2
             }
         }
 
-        [OneToOne]
+        [Ignore]
         // description of the cryptocurrency
         public Description description
         {
