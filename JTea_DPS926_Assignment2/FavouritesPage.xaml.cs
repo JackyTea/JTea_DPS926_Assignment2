@@ -41,7 +41,7 @@ namespace JTea_DPS926_Assignment2
         // handle favourite tapped event
         private async void FavouriteListItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await DisplayAlert("Notice", "You have tapped " + (e.Item as Coin).id , "Ok");
+            await DisplayAlert("Notice", "You have tapped " + (e.Item as Coin).image.small , "Ok");
         }
     }
 }
