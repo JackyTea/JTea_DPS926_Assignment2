@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JTea_DPS926_Assignment2.FavouritesDetailsPage">
+    <NavigationPage.TitleView>
+        <Label x:Name="FavouriteDetailsTitle" TextColor="White" FontSize="20" FontAttributes="Bold" Text="Favourites Details" VerticalTextAlignment="Center"/>
+    </NavigationPage.TitleView>
+    <Grid x:Name="FavouriteDetailsGrid" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ActivityIndicator x:Name="loadingFavourite" Grid.Row="0" Grid.Column="1" IsRunning="true" Color="#4287F5" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+
+        <Frame CornerRadius="10" HasShadow="True" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <Image BackgroundColor="White" x:Name="favouriteImage" Source=""/>
+        </Frame>
+
+        <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="White" Grid.Row="3" Grid.Column="0">
+            <Label TextColor="Gray" Text="Symbol" />
+            <Label x:Name="favouriteSymbol" TextColor="Black" Text="N/A"/>
+        </StackLayout>
+
+        <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="White" Grid.Row="3" Grid.Column="1">
+            <Label TextColor="Gray" Text="Name" />
+            <Label x:Name="favouriteName" TextColor="Black" Text="N/A"/>
+        </StackLayout>
+
+        <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="White" Grid.Row="3" Grid.Column="2">
+            <Label TextColor="Gray" Text="Price (USD)" />
+            <Label x:Name="favouritePrice" TextColor="Black" Text="N/A"/>
+        </StackLayout>
+
+        <StackLayout Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label TextColor="Gray" Text="Description" />
+            <Label x:Name="favouriteDescription" TextColor="Black" Text="N/A"/>
+        </StackLayout>
+
+        <TableView Intent="Settings" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
+            <TableRoot>
+                <TableSection>
+                    <EntryCell x:Name="updateFavourite" Keyboard="Text" Text="" LabelColor="Black" Label="Update Favourite" Placeholder="(e.g. Bitcoin, Ethereum)">
+                    </EntryCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#FCB603" Text="Update" Clicked="OnUpdateFavourite"/>
+
+        <Button x:Name="removeFromFavouritesButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" TextColor="White" BorderRadius="10" BackgroundColor="#FF3421" Text="Remove from Favourites" Clicked="OnRemoveFromFavourites"/>
+    </Grid>
+</ContentPage>

@@ -28,7 +28,8 @@ namespace JTea_DPS926_Assignment2
             await _connection.CreateTableAsync<Coin>();
             var coinsFromDB = await _connection.Table<Coin>().ToListAsync();
             var coinsCollection = new ObservableCollection<Coin>(coinsFromDB);
-            foreach (Coin c in coinsCollection) {
+            foreach (Coin c in coinsCollection)
+            {
                 Coin fetchedCoin = await manager.getOneCoin(c.id);
                 c.image = fetchedCoin.image;
                 c.description = fetchedCoin.description;
@@ -38,13 +39,14 @@ namespace JTea_DPS926_Assignment2
         }
 
         // check if coin is in favourites
-        public async Task<bool> CoinExists(string id) {
+        public async Task<bool> CoinExists(string id)
+        {
             bool exists = false;
             try
             {
                 exists = await _connection.ExecuteScalarAsync<bool>("SELECT EXISTS(SELECT 1 FROM Coin WHERE id=?)", id);
             }
-            catch 
+            catch
             {
                 exists = false;
             }
@@ -55,6 +57,12 @@ namespace JTea_DPS926_Assignment2
         public async void InsertCoin(Coin newCoin)
         {
             await _connection.InsertAsync(newCoin);
+        }
+
+        // update record in database
+        public async void UpdateCoin(Coin updateCoin)
+        {
+            await _connection.UpdateAsync(updateCoin);
         }
 
         // delete from database
