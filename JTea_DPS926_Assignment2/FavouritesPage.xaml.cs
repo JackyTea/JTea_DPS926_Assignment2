@@ -44,5 +44,15 @@ namespace JTea_DPS926_Assignment2
             Coin c = e.Item as Coin;
             await Navigation.PushAsync(new FavouritesDetailsPage(c.id));
         }
+
+        // handle tap and hold menu item to delete
+        private void OnDeleteFavouriteMenuItemClicked(object sender, EventArgs e)
+        {
+            Coin c = (sender as MenuItem).CommandParameter as Coin;
+            manager.DeleteCoin(c);
+            var toDelete = favouriteCoins.FirstOrDefault(x => x.id.Equals(c.id));
+            int i = favouriteCoins.IndexOf(toDelete);
+            favouriteCoins.RemoveAt(i);
+        }
     }
 }

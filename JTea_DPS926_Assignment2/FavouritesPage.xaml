@@ -10,7 +10,11 @@
         <ListView x:Name="listOfFavourites" ItemTapped="FavouriteListItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell ImageSource="{Binding image.small}" Text="{Binding name}" Detail="{Binding symbol}" TextColor="Black" DetailColor="Gray"/>
+                    <ImageCell ImageSource="{Binding image.small}" Text="{Binding name}" Detail="{Binding symbol}" TextColor="Black" DetailColor="Gray">
+                        <ImageCell.ContextActions>
+                            <MenuItem Text="Delete" CommandParameter="{Binding .}" IsDestructive="True" Clicked="OnDeleteFavouriteMenuItemClicked" />
+                        </ImageCell.ContextActions>
+                    </ImageCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
