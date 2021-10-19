@@ -13,10 +13,10 @@ namespace JTea_DPS926_Assignment2
     public partial class FavouritesDetailsPage : ContentPage
     {
         // api networking service
-        public NetworkingManager service = new NetworkingManager();
+        public NetworkingManager api = new NetworkingManager();
 
         // database service instance
-        public DatabaseManager manager = new DatabaseManager();
+        public DatabaseManager db = new DatabaseManager();
 
         // query parameter
         public string id { get; private set; }
@@ -39,11 +39,11 @@ namespace JTea_DPS926_Assignment2
             return description;
         }
 
-        // load in favourites
-        protected async override void OnAppearing()
+        // get favourites data
+        private async void GetFavouritesData()
         {
             coin = new Coin();
-            var coinData = await service.getOneCoin(id);
+            var coinData = await api.getOneCoin(id);
             if (coinData.symbol is null)
             {
                 FavouriteDetailsGrid.Children.Remove(removeFromFavouritesButton);
@@ -68,6 +68,13 @@ namespace JTea_DPS926_Assignment2
             FavouriteDetailsGrid.Children.Remove(loadingFavourite);
         }
 
+        // load in favourites
+        protected override void OnAppearing()
+        {
+            GetFavouritesData();
+            base.OnAppearing();
+        }
+
         // handle updating the current favourite
         private async void OnUpdateFavourite(object sender, EventArgs e)
         {
@@ -77,7 +84,7 @@ namespace JTea_DPS926_Assignment2
             }
             else
             {
-                var coinData = await service.getOneCoin(updateFavourite.Text);
+                var coinData = await api.getOneCoin(updateFavourite.Text);
                 if (coinData.symbol is null)
                 {
                     await DisplayAlert("Error", updateFavourite.Text + " is not a valid coin.", "Ok");
@@ -85,9 +92,9 @@ namespace JTea_DPS926_Assignment2
                 else
                 {
                     Coin c = coin;
-                    manager.DeleteCoin(coin);
+                    db.DeleteCoin(coin);
                     coin = coinData;
-                    manager.InsertCoin(coin);
+                    db.InsertCoin(coin);
                     await Navigation.PopAsync();
                     await DisplayAlert("Notice", "Updated " + c.id + " to " + coin.id, "Ok");
                 }
@@ -98,7 +105,7 @@ namespace JTea_DPS926_Assignment2
         private async void OnRemoveFromFavourites(object sender, EventArgs e)
         {
             Coin c = coin;
-            manager.DeleteCoin(coin);
+            db.DeleteCoin(coin);
             await Navigation.PopAsync();
             await DisplayAlert("Notice", "Removed " + c.id + " from favourites.", "Ok");
         }

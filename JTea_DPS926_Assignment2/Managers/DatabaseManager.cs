@@ -14,7 +14,7 @@ namespace JTea_DPS926_Assignment2
         SQLiteAsyncConnection _connection;
 
         // api networking instance
-        NetworkingManager manager = new NetworkingManager();
+        NetworkingManager api = new NetworkingManager();
 
         // constructor (0 params required)
         public DatabaseManager()
@@ -22,19 +22,25 @@ namespace JTea_DPS926_Assignment2
             _connection = DependencyService.Get<SQLiteDBInterface>().createSQLiteDB();
         }
 
-        // initialization of table and getting all coins
-        public async Task<ObservableCollection<Coin>> CreateTable()
+        // get missing data from api to fill out favourites
+        public async void ComepleteCoinData(ObservableCollection<Coin> coinsCollection)
         {
-            await _connection.CreateTableAsync<Coin>();
-            var coinsFromDB = await _connection.Table<Coin>().ToListAsync();
-            var coinsCollection = new ObservableCollection<Coin>(coinsFromDB);
             foreach (Coin c in coinsCollection)
             {
-                Coin fetchedCoin = await manager.getOneCoin(c.id);
+                Coin fetchedCoin = await api.getOneCoin(c.id);
                 c.image = fetchedCoin.image;
                 c.description = fetchedCoin.description;
                 c.market_data = fetchedCoin.market_data;
             }
+        }
+
+        // get all records from table
+        public async Task<ObservableCollection<Coin>> QueryAllCoins()
+        {
+            await _connection.CreateTableAsync<Coin>();
+            var coinsFromDB = await _connection.Table<Coin>().ToListAsync();
+            var coinsCollection = new ObservableCollection<Coin>(coinsFromDB);
+            ComepleteCoinData(coinsCollection);
             return coinsCollection;
         }
 

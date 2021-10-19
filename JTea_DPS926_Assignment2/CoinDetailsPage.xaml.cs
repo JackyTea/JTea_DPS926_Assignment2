@@ -13,10 +13,10 @@ namespace JTea_DPS926_Assignment2
     public partial class CoinDetailsPage : ContentPage
     {
         // api networking service
-        public NetworkingManager service = new NetworkingManager();
+        public NetworkingManager api = new NetworkingManager();
 
         // database service instance
-        public DatabaseManager manager = new DatabaseManager();
+        public DatabaseManager db = new DatabaseManager();
 
         // query parameter
         public string id { get; private set; }
@@ -32,18 +32,18 @@ namespace JTea_DPS926_Assignment2
         }
 
         // show long description up to certain length
-        public string TruncateDescription(string description, int max)
+        private string TruncateDescription(string description, int max)
         {
             if (description.Length > max)
                 return description.Substring(0, max) + "...";
             return description;
         }
 
-        // load in coin
-        protected async override void OnAppearing()
+        // fetch coin data and render to ui
+        private async void RenderCoinData()
         {
             coin = new Coin();
-            var coinData = await service.getOneCoin(id);
+            var coinData = await api.getOneCoin(id);
             if (coinData.symbol is null)
             {
                 CoinDetailsGrid.Children.Remove(addToFavouritesButton);
@@ -66,7 +66,12 @@ namespace JTea_DPS926_Assignment2
             }
             loadingCrypto.IsRunning = false;
             CoinDetailsGrid.Children.Remove(loadingCrypto);
-            bool exists = await manager.CoinExists(coin.id);
+        }
+
+        // determine ui state of favourites button
+        private async void DetermineFavouritesButtonState()
+        {
+            bool exists = await db.CoinExists(coin.id);
             if (!exists)
             {
                 addToFavouritesButton.Text = "Add to Favourites";
@@ -77,24 +82,31 @@ namespace JTea_DPS926_Assignment2
                 addToFavouritesButton.Text = "Remove from Favourites";
                 addToFavouritesButton.BackgroundColor = Color.FromHex("#FF3421");
             }
+        }
+
+        // load in coin
+        protected override void OnAppearing()
+        {
+            RenderCoinData();
+            DetermineFavouritesButtonState();
             base.OnAppearing();
         }
 
         private async void OnAddToFavourites(object sender, EventArgs e)
         {
-            bool exists = await manager.CoinExists(coin.id);
+            bool exists = await db.CoinExists(coin.id);
             if (!exists)
             {
                 addToFavouritesButton.Text = "Remove from Favourites";
                 addToFavouritesButton.BackgroundColor = Color.FromHex("#FF3421");
-                manager.InsertCoin(coin);
+                db.InsertCoin(coin);
                 await DisplayAlert("Notice", "Succesfully added " + coin.id + " to favourites!", "Ok");
             }
             else
             {
                 addToFavouritesButton.Text = "Add to Favourites";
                 addToFavouritesButton.BackgroundColor = Color.FromHex("#4287F5");
-                manager.DeleteCoin(coin);
+                db.DeleteCoin(coin);
                 await DisplayAlert("Notice", "Removed " + coin.id + " from favourites.", "Ok");
             }
         }

@@ -13,7 +13,7 @@ namespace JTea_DPS926_Assignment2
     public partial class FavouritesPage : ContentPage
     {
         // database service instance
-        public DatabaseManager manager = new DatabaseManager();
+        public DatabaseManager db = new DatabaseManager();
 
         // coins to be displayed
         public ObservableCollection<Coin> favouriteCoins { get; private set; }
@@ -24,17 +24,24 @@ namespace JTea_DPS926_Assignment2
             InitializeComponent();
         }
 
-        // load in favourites
-        protected async override void OnAppearing()
+        // fetch coins from database
+        private async void InitializeCoins()
         {
             favouriteCoins = new ObservableCollection<Coin>();
-            favouriteCoins = await manager.CreateTable();
-            if (favouriteCoins.Count == 0) {
+            favouriteCoins = await db.QueryAllCoins();
+            if (favouriteCoins.Count == 0)
+            {
                 favouriteCoins = new ObservableCollection<Coin>();
             }
             loadingFavourites.IsRunning = false;
             favouritesListStackLayout.Children.Remove(loadingFavourites);
             listOfFavourites.ItemsSource = favouriteCoins;
+        }
+
+        // load in favourites
+        protected override void OnAppearing()
+        {
+            InitializeCoins();
             base.OnAppearing();
         }
 
@@ -49,7 +56,7 @@ namespace JTea_DPS926_Assignment2
         private void OnDeleteFavouriteMenuItemClicked(object sender, EventArgs e)
         {
             Coin c = (sender as MenuItem).CommandParameter as Coin;
-            manager.DeleteCoin(c);
+            db.DeleteCoin(c);
             var toDelete = favouriteCoins.FirstOrDefault(x => x.id.Equals(c.id));
             int i = favouriteCoins.IndexOf(toDelete);
             favouriteCoins.RemoveAt(i);

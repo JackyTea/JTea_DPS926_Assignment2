@@ -11,7 +11,7 @@ namespace JTea_DPS926_Assignment2
     public partial class MainPage : ContentPage
     {
         // database service instance
-        public DatabaseManager manager = new DatabaseManager();
+        public DatabaseManager db = new DatabaseManager();
 
         // constructor (0 params required)
         public MainPage()
@@ -23,7 +23,7 @@ namespace JTea_DPS926_Assignment2
         // init table
         protected async override void OnAppearing()
         {
-            await manager.CreateTable();
+            await db.QueryAllCoins();
         }
 
         // search cryptos

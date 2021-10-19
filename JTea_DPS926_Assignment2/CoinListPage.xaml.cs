@@ -13,7 +13,7 @@ namespace JTea_DPS926_Assignment2
     public partial class CoinListPage : ContentPage
     {
         // api service instance
-        public NetworkingManager service = new NetworkingManager();
+        public NetworkingManager api = new NetworkingManager();
 
         // coins to be displayed
         public ObservableCollection<Coin> coins { get; private set; }
@@ -24,11 +24,11 @@ namespace JTea_DPS926_Assignment2
             InitializeComponent();
         }
 
-        // load in coins
-        protected async override void OnAppearing()
+        // get coin data
+        protected async void GetCoinData() 
         {
             coins = new ObservableCollection<Coin>();
-            var coinsData = await service.getAllCoins();
+            var coinsData = await api.getAllCoins();
             if (coinsData.Count != 0)
             {
                 foreach (Coin c in coinsData)
@@ -48,7 +48,8 @@ namespace JTea_DPS926_Assignment2
                 coinListStackLayout.Children.Remove(loadingCryptos);
                 listOfCryptos.ItemsSource = coins;
             }
-            else {
+            else
+            {
                 Label noCoinsMessage = new Label();
                 noCoinsMessage.Text = "Unable to load data!";
                 noCoinsMessage.FontSize = 30;
@@ -57,6 +58,12 @@ namespace JTea_DPS926_Assignment2
                 coinListStackLayout.Children.Remove(loadingCryptos);
                 coinListStackLayout.Children.Add(noCoinsMessage);
             }
+        }
+
+        // load in coins
+        protected override void OnAppearing()
+        {
+            GetCoinData();
             base.OnAppearing();
         }
 
