@@ -25,7 +25,7 @@ namespace JTea_DPS926_Assignment2
         }
 
         // get coin data
-        protected async void GetCoinData() 
+        protected async void GetCoinData()
         {
             coins = new ObservableCollection<Coin>();
             var coinsData = await api.getAllCoins();

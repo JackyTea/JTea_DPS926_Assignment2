@@ -18,6 +18,7 @@ namespace JTea_DPS926_Assignment2
         {
             InitializeComponent();
             cryptoImage.Source = ImageSource.FromResource("JTea_DPS926_Assignment2.Images.crypto.jpg");
+            searchForCrypto.Text = "";
         }
 
         // init table
@@ -36,6 +37,7 @@ namespace JTea_DPS926_Assignment2
             else
             {
                 await Navigation.PushAsync(new CoinDetailsPage(searchForCrypto.Text.ToLower()));
+                searchForCrypto.Text = "";
             }
         }
 
