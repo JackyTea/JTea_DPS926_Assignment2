@@ -84,7 +84,7 @@ namespace JTea_DPS926_Assignment2
             }
             else
             {
-                var coinData = await api.getOneCoin(updateFavourite.Text);
+                var coinData = await api.getOneCoin(updateFavourite.Text.ToLower());
                 if (coinData.symbol is null)
                 {
                     await DisplayAlert("Error", updateFavourite.Text + " is not a valid coin.", "Ok");
